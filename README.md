@@ -1,14 +1,12 @@
 # TP4 : I'm Socketing, r u soketin ?
 
-# [I. Simple bs program](./1_simple_bs_program/README.md)
+# [I. Simple bs program](#I. Simple bs program)
 
 # [II. You say dev I say good practices](./2_good_practices/README.md)
 
 # [III. COMPUTE](./3_compute/README.md)
 
 # I. Simple bs program
-
-Première partie pour mettre en place un environnement fonctionnel et deux programmes simples qui discutent à travers le réseau.
 
 - [I. Simple bs program](#i-simple-bs-program)
     - [1. First steps](#1-first-steps)
@@ -19,34 +17,47 @@ Première partie pour mettre en place un environnement fonctionnel et deux progr
 
 🌞 **`bs_server_I1.py`**
 
-- écoute sur une IP spécifique et port 13337 en TCP
-- répond automatiquement "Hi mate !" dès qu'un client se connecte
-- affiche la réponse des clients qui se connectent
-
-> Il faudra ouvrir ce port dans le *firewall* de la machine.
+[bs_server_I1.py](bs_server_I1.py)
 
 🌞 **`bs_client_I1.py`**
 
-- se connecte à l'IP spécifique de la VM serveur et au port 13337
-- envoie la string "Meooooo !"
-- affiche une éventuelle réponse
-- quitte proprement
-
-➜ **Pour quitter proprement, on attend pas juste que l'exécution arrive en fin de fichier, mais on quitte explicitement**
-
-- librairie `sys`
-- elle contient une méthode `exit()`
-- la méthode `exit()` prend un entier en paramètre : le code retour à retourner quand le programme se termine. Pour rappel :
-    - `0` veut dire que le programme s'est terminé correctement
-    - autre chose veut dire que le programme ne s'est pas terminé correctement
+[bs_client_I1.py](bs_client_I1.py)
 
 🌞 **Commandes...**
 
-- je veux dans le compte-rendu toutes les commandes réalisées sur le client et le serveur pour que ça fonctionne
-- et je veux aussi voir une exécution de votre programme
-- oh et je veux un `ss` sur le serveur
-    - n'affiche qu'une ligne : celle qui concerne l'écoute de notre programme
-    - ajoutez les bonnes options à `ss` ainsi qu'un `| grep ...` pour n'afficher que la bonne ligne
+```bash
+[ahliko@tp4 ~]$ sudo dnf install git -y
+[ahliko@tp4 ~]$ git clone git@github.com:Ahliko/TP4_dev.git
+[ahliko@tp4 ~]$ cd TP4_dev
+[ahliko@tp4 TP4_dev]$ sudo dnf install python-pip -y
+[ahliko@tp4 TP4_dev]$ sudo pip install psutil
+[ahliko@tp4 TP4_dev]$ sudo firewall-cmd --add-port=13337/tcp --permanent
+success
+[ahliko@tp4 TP4_dev]$ sudo firewall-cmd --reload
+success
+[ahliko@tp4 ~]$ sudo firewall-cmd --list-all
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: enp0s3 enp0s8
+  sources: 
+  services: cockpit dhcpv6-client ssh
+  ports: 13337/tcp
+  protocols: 
+  forward: yes
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules:
+[ahliko@tp4 TP4_dev]$ python3 bs_server_I1.py
+[ahliko@tp4 TP4_dev]$ python bs_server_I1.py
+10.1.1.11
+Connected by ('10.1.1.0', 34426)
+Données reçues du client : Meooooo !
+[ahliko@tp4 ~]$ sudo ss -alnpt | grep python
+LISTEN 0      1          10.1.1.11:13337      0.0.0.0:*    users:(("python",pid=1359,fd=3))
+```
 
 ## 2. User friendly
 
