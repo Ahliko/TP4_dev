@@ -2,7 +2,8 @@ import logging
 import socket
 from psutil import net_if_addrs
 
-host = net_if_addrs()[[i for i in net_if_addrs()][1]][0][1]
+host = net_if_addrs()[[i for i in net_if_addrs()][2]][0][1]
+print(host)
 port = 13337
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
