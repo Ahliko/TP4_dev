@@ -1,4 +1,5 @@
 import socket
+from sys import exit
 
 host = '10.1.1.11'
 port = 13337
@@ -14,3 +15,5 @@ if data is not None:
     print(f"Le serveur a répondu {data.decode()}")
 else:
     print("Pas de réponse du serveur !")
+
+exit(0)
