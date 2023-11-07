@@ -78,8 +78,8 @@ try:
                 logger.warning("Le client n'a pas envoyé de données.")
                 break
             logger.info(f"Le client {addr} a envoyé {data.decode()}.")
-            conn.sendall(eval(data.decode()).encode())
-            logger.info(f"Réponse envoyée au client : {eval(data.decode())}")
+            conn.sendall(str(eval(data.decode())).encode())
+            logger.info(f"Réponse envoyée au client : {str(eval(data.decode()))}")
 
         except socket.error:
             conn.close()
