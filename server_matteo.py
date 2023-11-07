@@ -53,7 +53,6 @@ s.listen(1)
 
 conn, addr = s.accept()
 
-print(f"Un client vient de se co et son IP c'est {addr[0]}.")
 logger.info(f"Un client {addr[0]} s'est connecté.")
 
 response = "error"
@@ -63,9 +62,9 @@ while True:
         data = conn.recv(1024)
         if not data: break
         logger.info(f"Le client {addr[0]} a envoyé {data.decode()}.")
-        if (data.decode() == "meo"):
+        if ("meo" in data.decode()):
             response = "Meo à toi confrère."
-        elif (data.decode() == "waf"):
+        elif ("waf" in data.decode()):
             response = "ptdr t ki"
         else:
             response = "Mes respects humble humain."
