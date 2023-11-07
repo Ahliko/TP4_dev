@@ -71,6 +71,7 @@ conn, addr = s.accept()
 try:
     logger.info(f"Un client {addr} s'est connecté.")
     check_thread.join()
+    print("gaga")
     if check_thread.is_alive():
         logger.info(f"Le Thread est toujours en vie.")
         check_thread.join()

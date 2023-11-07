@@ -143,19 +143,29 @@ sudo mkdir /var/log/bs_client -m 700 && sudo chown -R $(whoami):$(whoami) /var/l
 python bs_client_II2B.py
 ```
 
+[bs_client_II2B.py](bs_client_II2B.py)
+
 # III. COMPUTE
 
 🌞 **`bs_client_III.py`**
 
-- doit générer des logs
-- demande au client de saisir une opération arithmétique
-- ajoutez du contrôle (expression régulière) pour ne tolérer que :
-  - additions, soustractions, multiplications
-  - des nombres entiers compris entre -100000 et +100000
+```bash
+sudo mkdir /var/log/bs_client -m 700 && sudo chown -R $(whoami):$(whoami) /var/log/bs_client && touch /var/log/bs_client/bs_client.log && chmod 600 /var/log/bs_client/bs_client.log
+```
+```bash
+python bs_client_III.py
+```
+
+[bs_client_III.py](bs_client_III.py)
 
 🌞 **`bs_server_III.py`**
 
-- doit générer des logs
-- récupérez le code de `bs_server_II2A.py` si vous voulez mais enlevez tout ce qui est en rapport avec les meos et les wafs, on fait une calculette ici !
-- la string qu'envoie le client, il faut l'interpréter comme un calcul pour stocker le résultat dans une variable
-- en Python y'a par exemple la fonction native `eval()` qui permet de faire ça
+```bash
+sudo mkdir /var/log/bs_server -m 700 && sudo chown -R $(whoami):$(whoami) /var/log/bs_server && touch /var/log/bs_server/bs_server.log && chmod 600 /var/log/bs_server/bs_server.log
+```
+
+```bash
+python bs_server_III.py
+```
+
+[bs_server_III.py](bs_server_III.py)
