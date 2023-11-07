@@ -69,7 +69,6 @@ try:
 except TypeError:
     logging.error("Erreur ! Le message doit être une chaîne de caractères !")
     exit(1)
-
 s.sendall(msg.encode())
 logger.info(f"Message envoyé au serveur {host} : {msg}.")
 data = s.recv(1024)
