@@ -2,7 +2,7 @@
 
 # [I. Simple bs program](#I. Simple bs program)
 
-# [II. You say dev I say good practices](./2_good_practices/README.md)
+# [II. You say dev I say good practices](#II. You say dev I say good practices)
 
 # [III. COMPUTE](./3_compute/README.md)
 
@@ -103,7 +103,6 @@ python bs_client_I3.py
   - [2. Logs](#2-logs)
     - [A. Logs serveur](#a-logs-serveur)
     - [B. Logs client](#b-logs-client)
-    - [C. NOTE IMPORTANTE](#c-note-importante)
 
 ## 1. Args
 
@@ -117,18 +116,13 @@ $ python bs_server_II1.py -p 8888
 
 ## 2. Logs
 
-**Allô les dévs ? Ici it4 l'admin qui vous parle. Ils sont où les ptain de logs de votre application bowdel.**
-
-![No logs](../img/nologs.jpg)
-
-
 ### A. Logs serveur
 
 🌞 **`bs_server_II2A.py`**
 
 
 ```bash
-sudo mkdir /var/log/bs_server -m 666 && sudo touch /var/log/bs_server/bs_server.log && sudo chmod 666 /var/log/bs_server/bs_server.log
+sudo mkdir /var/log/bs_server -m 700 && sudo chown -R $(whoami):$(whoami) /var/log/bs_server && touch /var/log/bs_server/bs_server.log && chmod 600 /var/log/bs_server/bs_server.log
 ```
 
 ```bash
@@ -139,31 +133,29 @@ python bs_server_II2A.py -p 8888
 
 ### B. Logs client
 
-Les logs du client, c'est que dans un fichier. En effet, que ce soit une app console ou graphique, le client on veut lui montrer que ce qui est directement lié à SON utilisation de l'application. Et pas le reste.   
-Donc on lui jette pas les logs et des vilaines erreurs au visage, ni 14000 messages informatifs.
-
-Je vous laisse choisir l'emplacement du fichier de log de façon **pertinente**.
-
 🌞 **`bs_client_II2B.py`**
 
-- ce qui doit générer une ligne de log :
-  - `INFO` connexion réussie à un serveur
-    - `Connexion réussie à <IP>:<PORT>.`
-  - `INFO` message envoyé par le client
-    - `Message envoyé au serveur <IP_SERVER> : <MESSAGE>.`
-  - `INFO` message reçu du serveur
-    - `Réponse reçue du serveur <IP_SERVER> : <MESSAGE>.`
-  - `ERROR` connexion au serveur échouée
-    - pour le tester, il suffit de lancer le client alors que le serveur est éteint !
-    - le message : `Impossible de se connecter au serveur <IP_SERVER> sur le port <PORT>.`
-- en console
-  - affiche juste `ERROR Impossible de se connecter au serveur <IP_SERVER> sur le port <PORT>.` en rouge quand ça fail (pas de timestamp là)
-  - les messages de niveau INFO ne sont pas visibles dans la console du client
-- dans un fichier
-  - `<DOSSIER_DE_LOG>/bs_client.log`
 
-### C. NOTE IMPORTANTE
+```bash
+sudo mkdir /var/log/bs_client -m 700 && sudo chown -R $(whoami):$(whoami) /var/log/bs_client && touch /var/log/bs_client/bs_client.log && chmod 600 /var/log/bs_client/bs_client.log
+```
+```bash
+python bs_client_II2B.py
+```
 
-**A partir de maintenant, vous savez gérer des logs à peu près proprement.**
+# III. COMPUTE
 
-Vous allez dév plusieurs machins en cours, vous devrez utiliser exactement la même méthode que précédemment pour générer les logs : timestamp, niveau de log, message, stocké dans un fichier précis etc.
+🌞 **`bs_client_III.py`**
+
+- doit générer des logs
+- demande au client de saisir une opération arithmétique
+- ajoutez du contrôle (expression régulière) pour ne tolérer que :
+  - additions, soustractions, multiplications
+  - des nombres entiers compris entre -100000 et +100000
+
+🌞 **`bs_server_III.py`**
+
+- doit générer des logs
+- récupérez le code de `bs_server_II2A.py` si vous voulez mais enlevez tout ce qui est en rapport avec les meos et les wafs, on fait une calculette ici !
+- la string qu'envoie le client, il faut l'interpréter comme un calcul pour stocker le résultat dans une variable
+- en Python y'a par exemple la fonction native `eval()` qui permet de faire ça
