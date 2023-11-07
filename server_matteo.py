@@ -70,12 +70,11 @@ try:
             else:
                 logger.info(f"Le client {addr[0]} a envoyé autre chose.")
                 response = "Mes respects humble humain."
+            logger.info(f"Réponse à envoyer au client {addr[0]} : {response}.")
+            conn.sendall(response.encode())
+            logger.info(f"Réponse envoyée au client {addr[0]} : {response}.")
     except socket.error:
         print("Erreur de connexion.")
-
-    logger.info(f"Réponse à envoyer au client {addr[0]} : {response}.")
-    conn.sendall(response.encode())
-    logger.info(f"Réponse envoyée au client {addr[0]} : {response}.")
 finally:
     conn.close()
     s.close()
