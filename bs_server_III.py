@@ -45,7 +45,7 @@ def check_connections():
             last_check = time.time()
 
 
-# check_thread = threading.Thread(target=check_connections)
+check_thread = threading.Thread(target=check_connections)
 
 if argv.port is None:
     logger.warning("Le port n'a pas été spécifié, le port par défaut (13337) sera utilisé.")
@@ -66,11 +66,14 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((host, port))
 s.listen(1)
 logger.info(f"Le serveur tourne sur {host}:{port}")
-# check_thread.start()
+check_thread.start()
 conn, addr = s.accept()
 try:
     logger.info(f"Un client {addr} s'est connecté.")
-    # check_thread.join()
+    check_thread.join()
+    if check_thread.is_alive():
+        logger.info(f"Le Thread est toujours en vie.")
+        check_thread.join()
     while True:
         try:
             data = conn.recv(1024)
