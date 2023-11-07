@@ -1,6 +1,7 @@
 import logging
 import threading
 import time
+from socket import socket
 
 import colorlog
 import socket
@@ -67,20 +68,23 @@ s.listen(1)
 logger.info(f"Le serveur tourne sur {host}:{port}")
 check_thread.start()
 conn, addr = s.accept()
-logger.info(f"Un client {addr} s'est connecté.")
-check_thread.join()
-while True:
-    try:
-        data = conn.recv(1024)
-        if not data:
-            logger.warning("Le client n'a pas envoyé de données.")
-            break
-        logger.info(f"Le client {addr} a envoyé {data.decode()}.")
-        conn.sendall(eval(data.decode()).encode())
-        logger.info(f"Réponse envoyée au client : {eval(data.decode())}")
+try:
+    logger.info(f"Un client {addr} s'est connecté.")
+    check_thread.join()
+    while True:
+        try:
+            data = conn.recv(1024)
+            if not data:
+                logger.warning("Le client n'a pas envoyé de données.")
+                break
+            logger.info(f"Le client {addr} a envoyé {data.decode()}.")
+            conn.sendall(eval(data.decode()).encode())
+            logger.info(f"Réponse envoyée au client : {eval(data.decode())}")
 
-    except socket.error:
-        conn.close()
-        logging.error(f"Problème de connexion")
-        exit(1)
-conn.close()
+        except socket.error:
+            conn.close()
+            logging.error(f"Problème de connexion")
+            exit(1)
+finally:
+    conn.close()
+    s.close()
