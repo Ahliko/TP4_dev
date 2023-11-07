@@ -64,14 +64,18 @@ try:
         if not data: break
         logger.info(f"Le client {addr[0]} a envoyé {data.decode()}.")
         if ("meo" in data.decode()):
+            logger.info(f"Le client {addr[0]} a envoyé 'meo'.")
             response = "Meo à toi confrère."
         elif ("waf" in data.decode()):
+            logger.info(f"Le client {addr[0]} a envoyé 'waf'.")
             response = "ptdr t ki"
         else:
+            logger.info(f"Le client {addr[0]} a envoyé autre chose.")
             response = "Mes respects humble humain."
 except socket.error:
     print("Erreur de connexion.")
 
+logger.info(f"Réponse à envoyer au client {addr[0]} : {response}.")
 conn.sendall(response.encode())
 logger.info(f"Réponse envoyée au client {addr[0]} : {response}.")
 conn.close()
