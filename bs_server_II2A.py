@@ -20,8 +20,7 @@ formatter = colorlog.ColoredFormatter(
     log_colors={
         'DEBUG': 'cyan',
         'INFO': 'white',
-        'WARN': 'yellow',
-        'WARNING': 'orange',
+        'WARNING': 'yellow',
         'ERROR': 'red',
         'CRITICAL': 'red,bg_white',
     }
@@ -41,7 +40,7 @@ def check_connections():
     last_check = time.time()
     while True:
         if time.time() - last_check >= 60:
-            logging.warn('Aucun client ne s\'est connecté depuis la dernière minute.')
+            logging.warning('Aucun client ne s\'est connecté depuis la dernière minute.')
             last_check = time.time()
 
 
