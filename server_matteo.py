@@ -57,8 +57,9 @@ logger.info(f"Un client {addr[0]} s'est connecté.")
 
 response = "error"
 
-while True:
-    try:
+
+try:
+    while True:
         data = conn.recv(1024)
         if not data: break
         logger.info(f"Le client {addr[0]} a envoyé {data.decode()}.")
@@ -68,8 +69,8 @@ while True:
             response = "ptdr t ki"
         else:
             response = "Mes respects humble humain."
-    except socket.error:
-        print("Erreur de connexion.")
+except socket.error:
+    print("Erreur de connexion.")
 
 conn.sendall(response.encode())
 logger.info(f"Réponse envoyée au client {addr[0]} : {response}.")
