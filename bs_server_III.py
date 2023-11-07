@@ -36,10 +36,13 @@ argparser = argparse.ArgumentParser(description="Serveur de chat.")
 argparser.add_argument("-p", "--port", type=int, help="Port d'écoute du serveur")
 argv = argparser.parse_args()
 
+stop = False
+
 
 def check_connections():
+    global stop
     last_check = time.time()
-    while True:
+    while not stop:
         if time.time() - last_check >= 60:
             logging.warning('Aucun client ne s\'est connecté depuis la dernière minute.')
             last_check = time.time()
@@ -70,10 +73,11 @@ check_thread.start()
 conn, addr = s.accept()
 try:
     logger.info(f"Un client {addr} s'est connecté.")
-    check_thread.join()
+
     print("gaga")
     if check_thread.is_alive():
         logger.info(f"Le Thread est toujours en vie.")
+        stop = True
         check_thread.join()
     while True:
         try:
