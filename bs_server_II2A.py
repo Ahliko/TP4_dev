@@ -9,7 +9,7 @@ import argparse
 
 logger = colorlog.getLogger()
 logger.setLevel(logging.INFO)
-file_handler = logging.FileHandler('/var/log/bs_server.log', 'w', 'utf-8')
+file_handler = logging.FileHandler('/var/log/bs_server/bs_server.log', 'w', 'utf-8')
 file_handler.setLevel(logging.INFO)
 stream_handler = colorlog.StreamHandler()
 stream_handler.setLevel(logging.INFO)

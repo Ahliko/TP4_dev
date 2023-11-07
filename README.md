@@ -121,81 +121,21 @@ $ python bs_server_II1.py -p 8888
 
 ![No logs](../img/nologs.jpg)
 
-Ce qu'on ~~voudrait~~ veut :
-
-➜ **des logs serveur**
-
-- dans la console
-- dans un fichier de log
-
-➜ **des logs client**
-
-- PAS dans la console : c'est le client, c'est un moldu, on lui montre R
-- dans un fichier de log
-
----
-
-Chaque ligne de log :
-
-- **doit être *timestamped***
-  - préfixée par date et heure, dans un format standard si possible
-- **doit être nivelée**
-  - je viens d'inventer le terme
-  - c'est à dire que vous préciser un niveau de logging
-
-Il existe des standards sur les niveaux de log en informatique. Les trois en gras sont les plus utilisés. En haut le plus critique, en bas, le moins :
-
-- Emergency
-- Alert
-- Critical
-- **Error** : ERROR ou ERR en rouge
-- **Warning** : WARNING ou WARN en jaune
-- Notice
-- **Informational** : INFO en blanc
-- Debug
-
-**Toutes les lignes de log de ce TP devront être au format suivant :**
-
-```
-yyyy-mm-dd hh:mm:ss LEVEL message
-```
-
-Par exemple :
-
-```
-2023-11-03 03:43:21 INFO Un client vient de se co et son IP c'est <CLIENT_IP>.
-```
 
 ### A. Logs serveur
 
-Le serveur va log chacune des actions à la fois dans la console, et aussi dans un fichier.
-
-Ce fichier il est pas à n'importe quel endroit si on utilise un système GNU/Linux, un dossier est dédié aux logs : `/var/log/`.  
-On peut donc créer là-bas un sous-dossier pour notre application, et on stocke dedans le fichier de log de notre application.
-
-Vous pouvez faire ça à la main, ou utiliser [**la librairie `logger`**](https://realpython.com/python-logging/), vous êtes libres pour le moment ! (`logger` c'est le feu quand même).
-
 🌞 **`bs_server_II2A.py`**
 
-- ce qui doit générer une ligne de log :
-  - `INFO` lancement du serveur
-    - `Le serveur tourne sur <IP>:<port>`
-  - `INFO` connexion d'un client
-    - l'IP du client doit apparaître dans la ligne de log
-    - `Un client <IP_CLIENT> s'est connecté.`
-  - `INFO` message reçu d'un client
-    - `Le client <IP_CLIENT> a envoyé <MESSAGE>.`
-  - `INFO` message envoyé par le serveur
-    - `Réponse envoyée au client <IP_CLIENT> : <MESSAGE>.`
-  - `WARN` aucun client connecté depuis + de 1 minute
-    - le message : `Aucun client depuis plus de une minute.`
-    - il doit apparaître toutes les minutes si personne ne se co
-- en console
-  - le mot-clé `INFO` doit apparaître en blanc
-  - le mot clé `WARN` doit apparaître en jaune
-- dans un fichier
-  - le fichier doit être `/var/log/bs_server/bs_server.log`
-  - le créer en amont si nécessaire, précisez la(les) commande(s) dans le compte-rendu
+
+```bash
+sudo mkdir /var/log/bs_server -m 666 && sudo touch /var/log/bs_server/bs_server.log && sudo chmod 666 /var/log/bs_server/bs_server.log
+```
+
+```bash
+python bs_server_II2A.py -p 8888
+```
+
+[bs_server_II2A.py](bs_server_II2A.py)
 
 ### B. Logs client
 
