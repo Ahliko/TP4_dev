@@ -1,10 +1,10 @@
 # TP4 : I'm Socketing, r u soketin ?
 
-# [I. Simple bs program](#I. Simple bs program)
+# [I. Simple bs program](#I-Simple-bs-program)
 
-# [II. You say dev I say good practices](#II. You say dev I say good practices)
+# [II. You say dev I say good practices](#ii-You-say-dev-I-say-good-practices)
 
-# [III. COMPUTE](./3_compute/README.md)
+# [III. COMPUTE](#iii-compute)
 
 # I. Simple bs program
 
@@ -122,6 +122,7 @@ $ python bs_server_II1.py -p 8888
 
 
 ```bash
+sudo pip install colorlog
 sudo mkdir /var/log/bs_server -m 700 && sudo chown -R $(whoami):$(whoami) /var/log/bs_server && touch /var/log/bs_server/bs_server.log && chmod 600 /var/log/bs_server/bs_server.log
 ```
 
